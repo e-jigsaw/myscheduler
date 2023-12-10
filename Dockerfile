@@ -10,6 +10,7 @@ RUN bun install --production
 COPY src src
 COPY tsconfig.json .
 COPY config.ts .
+COPY .env .
 
 ENV NODE_ENV production
 CMD ["bun", "src/index.ts"]
