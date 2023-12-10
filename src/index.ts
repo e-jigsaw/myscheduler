@@ -16,6 +16,7 @@ for (const c of config) {
         await fetcher(c);
         postMessage(`Finished fetching ${c.name}`);
       },
+      timezone: "Asia/Tokyo",
     })
   );
 }
