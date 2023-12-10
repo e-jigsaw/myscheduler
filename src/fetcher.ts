@@ -1,5 +1,6 @@
 import { RadikoPack, TextPack } from "./types";
 import { Config } from "../config";
+import { postMessage } from "./postMessage";
 
 const unwrapText = (text: TextPack) => {
   return text["#text"];
@@ -32,6 +33,11 @@ export const fetcher = async ({ name, isOverMidnight, kind }: Config) => {
             break;
           }
         }
+        postMessage(
+          `config: ${name},${isOverMidnight},${kind} / body: ${JSON.stringify(
+            body
+          )}`
+        );
         const r = await fetch(`${dest}/api/save`, {
           method: "POST",
           body: JSON.stringify(body),
