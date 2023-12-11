@@ -7,9 +7,10 @@ const unwrapText = (text: TextPack) => {
 };
 
 export const fetcher = async ({ name, isOverMidnight, kind }: Config) => {
+  const now = new Date().getTime() + 32400000; // JST
   const res = await fetch(
     `${Bun.env.JGS_STATION}/api/proxy?d=${
-      isOverMidnight ? new Date().getTime() - 86400000 : new Date().getTime()
+      isOverMidnight ? now - 86400000 : now
     }`
   );
   const data = await res.json();
@@ -20,7 +21,7 @@ export const fetcher = async ({ name, isOverMidnight, kind }: Config) => {
         const body = {
           ft: program.ft,
           title: unwrapText(program.title),
-          id: program.id,
+          id: (data.data as RadikoPack).radiko.stations.station[0].id,
         };
         let dest;
         switch (kind) {
